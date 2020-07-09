@@ -75,6 +75,43 @@ function mainLoop() {
     });
 }
 
+function dataUpdate() {
+  inquirer
+    .prompt([
+      {
+        name:"userID",
+        type:"input",
+        message:"Which user ID'd role are you updating?"
+      },
+      {
+        name:"roleID",
+        type:"input",
+        message:"What role ID will they have?"
+      }
+    ])
+    .then(function(answer) {
+      console.log(answer);
+      // Note that employees can't have an empty manager ID. this is a fundamental problem.
+      connection.query(
+        'UPDATE employee SET ? WHERE ?',
+        [
+          {
+            role_id:answer.roleID
+          },
+          {
+            id:answer.userID
+          }
+        ],
+        function(err) {
+          if (err) throw err;
+          console.log("Updated user");
+          mainLoop();
+        }
+        
+      )
+      });
+}
+
 function dataGet(table) {
   //console.log(table);
   connection.query(`SELECT * FROM ${table}`, function(err, res) {
