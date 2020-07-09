@@ -4,12 +4,13 @@ CREATE DATABASE company;
 USE company;
 
 CREATE TABLE department (
-	id INT,
+	id INT not null auto_increment,
+    name varchar(30),
     PRIMARY KEY (id)
 );
 
 Create table role (
-	id INT,
+	id INT not null auto_increment,
     title varchar(30),
     salary decimal(10,4) null,
     department_id int,
@@ -17,7 +18,7 @@ Create table role (
 );
 
 create table employee (
-	id int,
+	id int not null auto_increment,
     first_name varchar(30),
     last_name varchar(30),
     role_id int,
